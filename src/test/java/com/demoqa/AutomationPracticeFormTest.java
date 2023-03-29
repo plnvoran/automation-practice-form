@@ -31,7 +31,7 @@ public class AutomationPracticeFormTest extends TestBase {
     String lastNameCssLocatorField = "#lastName";
     String emailCssLocatorField = "#userEmail";
     String maleXpathLocator = "//*[@id='genterWrapper']//div/div[1]/";
-    String sportsXpathLocator = "//*[@id='genterWrapper']//div/div[1]/";
+    String sportsXpathLocator = "//*[@id='hobbiesWrapper']//div/div[1]/";
     String locatorLabel = "label";
     String locatorField = "input";
     String numberCssLocatorField = "#userNumber";
@@ -119,9 +119,9 @@ public class AutomationPracticeFormTest extends TestBase {
         $x(lineXpathLocator04).shouldHave(text(userNumberTestValue));
         $x(lineXpathLocator05).shouldHave(text(dayTestValue + " " + monthTestValue + "," + yearTestValue));
 
-        // Здесь скрипт находит багу и падает. Значения введенных полей пустые, хотя были заданы тестовые значения
+        // Здесь скрипт находит багу и падает. Значение введенное в  поле пустое, хотя было задано
         //$x(lineXpathLocator06).shouldHave(text(subjectTestValue));
-        //$x(lineXpathLocator07).shouldHave(text("Sports"));
+        $x(lineXpathLocator07).shouldHave(text("Sports"));
 
         $x(lineXpathLocator08).shouldHave(text(imageTestValue));
         $x(lineXpathLocator09).shouldHave(text(addressTestValue));
