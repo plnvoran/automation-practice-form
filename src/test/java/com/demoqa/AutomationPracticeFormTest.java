@@ -1,132 +1,70 @@
 package com.demoqa;
 
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 
 import java.io.File;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AutomationPracticeFormTest extends TestBase {
-    // Test data
+
     String firstNameTestValue = "John";
     String lastNameTestValue = "Smith";
     String emailTestValue = "JohnSmith76@gmail.com";
+    String genderTestValue = "Male";
     String userNumberTestValue = "9221234567";
+    String hobbiesTestValue = "Sports";
     String monthTestValue = "May";
     String yearTestValue = "2005";
     String dayTestValue = "15";
-    String birthDayTestValue = dayTestValue + " " + monthTestValue + " " + yearTestValue;
-    String subjectTestValue = "Test sbj.";
+    String subjectTestValue = "Maths";
     String addressTestValue = "Address India 04";
     String stateTestValue = "NCR";
     String cityTestValue = "Delhi";
     String imageDirTestValue = "src/test/resources/";
     String imageTestValue = "CharlesBukowski.jpg";
 
-
-    // Locators
-    String firstNameCssLocatorField = "#firstName";
-    String lastNameCssLocatorField = "#lastName";
-    String emailCssLocatorField = "#userEmail";
-    String maleXpathLocator = "//*[@id='genterWrapper']//div/div[1]/";
-    String sportsXpathLocator = "//*[@id='hobbiesWrapper']//div/div[1]/";
-    String locatorLabel = "label";
-    String locatorField = "input";
-    String numberCssLocatorField = "#userNumber";
-    String monthDateOfBirthXpathLocatorField = "//select[@class='react-datepicker__month-select']";
-    String yearDateOfBirthXpathLocatorField = "//select[@class='react-datepicker__year-select']";
-    String dayDateOfBirthXpathLocatorField = " //*[@id='dateOfBirth']//div[contains(text(),'15')]";
-    String dateOfBirthCssLocatorField = "#dateOfBirthInput";
-    String addressCssLocatorField = "#currentAddress";
-    String subjectXpathLocatorField = "//div[@id='subjectsContainer']//input";
-    String stateXpathLocatorField = "//*[@id='stateCity-wrapper']/div[2]//";
-    String cityXpathLocatorField = "//*[@id='stateCity-wrapper']/div[3]//";
-    String stateCityField = "div[@class=' css-1uccc91-singleValue']";
-    String imageCssLocatorField = "#uploadPicture";
-    String submitCssLocator = "#submit";;
-
-    // Locators for checking
-    String tableXpathLocator = "//tbody/tr";
-    String columnTwoXpathLocator = "/td[2]";
-    String lineXpathLocator01 = tableXpathLocator + "[" + "1" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator02 = tableXpathLocator + "[" + "2" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator03 = tableXpathLocator + "[" + "3" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator04 = tableXpathLocator + "[" + "4" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator05 = tableXpathLocator + "[" + "5" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator06 = tableXpathLocator + "[" + "5" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator07 = tableXpathLocator + "[" + "7" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator08 = tableXpathLocator + "[" + "8" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator09 = tableXpathLocator + "[" + "9" + "]" + columnTwoXpathLocator;
-    String lineXpathLocator10 = tableXpathLocator + "[" + "10" + "]" + columnTwoXpathLocator;
-
     @Test
     void successfulFillFormTest() {
 
         open("/automation-practice-form");
 
-        $(firstNameCssLocatorField).setValue(firstNameTestValue);
-        $(firstNameCssLocatorField).shouldHave(value(firstNameTestValue));
-
-        $(lastNameCssLocatorField).setValue(lastNameTestValue);
-        $(lastNameCssLocatorField).shouldHave(value(lastNameTestValue));
-
-        $(emailCssLocatorField).setValue(emailTestValue);
-        $(emailCssLocatorField).shouldHave(value(emailTestValue));
-
-        $x(maleXpathLocator + locatorLabel).click();
-        $x(maleXpathLocator + locatorField).shouldBe(selected);
-
-        $(numberCssLocatorField).setValue(userNumberTestValue);
-        $(numberCssLocatorField).shouldHave(value(userNumberTestValue));
-
+        $("#firstName").setValue(firstNameTestValue);
+        $("#lastName").setValue(lastNameTestValue);
+        $("#userEmail").setValue(emailTestValue);
+        $("#genterWrapper").$(byText(genderTestValue)).click();
         $("#userNumber").setValue(userNumberTestValue);
-        $("#userNumber").shouldHave(value(userNumberTestValue));
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").$(byText(monthTestValue)).click();
+        $(".react-datepicker__year-select").$(byText(yearTestValue)).click();
+        $x("//*[@id='dateOfBirth']//div[contains(text(),'15')]").click();
+        $("#subjectsContainer input").setValue(subjectTestValue).pressEnter();
+        $("#hobbiesWrapper").$(byText(hobbiesTestValue)).click();
+        $("#uploadPicture").uploadFile(new File(imageDirTestValue + imageTestValue));
+        $("#currentAddress").setValue(addressTestValue);
+        $("#state").click();
+        $("#stateCity-wrapper").$(byText(stateTestValue)).click();
+        $("#city").click();
+        $("#stateCity-wrapper").$(byText(cityTestValue)).click();
 
-        $(dateOfBirthCssLocatorField).click();
-        $x(monthDateOfBirthXpathLocatorField).selectOption(monthTestValue);
-        $x(yearDateOfBirthXpathLocatorField).selectOption(yearTestValue);
-        $x(dayDateOfBirthXpathLocatorField).click();
-        $(dateOfBirthCssLocatorField).shouldHave(value(birthDayTestValue));
+        $("#submit").click();
 
-        $x(subjectXpathLocatorField).setValue(subjectTestValue);
-        $x(subjectXpathLocatorField).shouldHave(value(subjectTestValue));
-
-        $x(sportsXpathLocator + locatorLabel).click();
-        $x(sportsXpathLocator + locatorField).shouldBe(selected);
-
-        $(addressCssLocatorField).setValue(addressTestValue);
-        $(addressCssLocatorField).shouldHave(value(addressTestValue));
-
-        $(imageCssLocatorField).uploadFile(new File(imageDirTestValue + imageTestValue));
-        $(imageCssLocatorField).shouldHave(value(imageTestValue));
-
-        $x(stateXpathLocatorField + locatorField).setValue(stateTestValue);
-        $x(stateXpathLocatorField + locatorField).sendKeys(Keys.ENTER);
-        $x(stateXpathLocatorField + stateCityField).shouldHave(text(stateTestValue));
-
-        $x(cityXpathLocatorField + locatorField).setValue(cityTestValue);
-        $x(cityXpathLocatorField + locatorField).sendKeys(Keys.ENTER);
-        $x(cityXpathLocatorField + stateCityField).shouldHave(text(cityTestValue));
-
-
-        $(submitCssLocator).click();
-
-        $x(lineXpathLocator01).shouldHave(text(firstNameTestValue + " " + lastNameTestValue));
-        $x(lineXpathLocator02).shouldHave(text(emailTestValue));
-        $x(lineXpathLocator03).shouldHave(text("Male"));
-        $x(lineXpathLocator04).shouldHave(text(userNumberTestValue));
-        $x(lineXpathLocator05).shouldHave(text(dayTestValue + " " + monthTestValue + "," + yearTestValue));
-
-        // Здесь скрипт находит багу и падает. Значение введенное в  поле пустое, хотя было задано
-        //$x(lineXpathLocator06).shouldHave(text(subjectTestValue));
-        $x(lineXpathLocator07).shouldHave(text("Sports"));
-
-        $x(lineXpathLocator08).shouldHave(text(imageTestValue));
-        $x(lineXpathLocator09).shouldHave(text(addressTestValue));
-        $x(lineXpathLocator10).shouldHave(text(stateTestValue + " " + cityTestValue));
-
+        $(".table-responsive").shouldHave(visible);
+        $(".table-responsive").shouldHave(
+                text(firstNameTestValue),
+                text(lastNameTestValue),
+                text(emailTestValue),
+                text(genderTestValue),
+                text(userNumberTestValue),
+                text(dayTestValue + " " + monthTestValue + "," + yearTestValue),
+                text(subjectTestValue),
+                text(hobbiesTestValue),
+                text(imageTestValue),
+                text(addressTestValue),
+                text(stateTestValue + " " + cityTestValue)
+        );
     }
 }
 
