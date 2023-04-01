@@ -43,7 +43,7 @@ public class AutomationPracticeFormTest extends TestBase {
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").$(byText(monthTestValue)).click();
         $(".react-datepicker__year-select").$(byText(yearTestValue)).click();
-        $(weekTestValue + dayTestValue ).click();
+        $(weekTestValue + dayTestValue).click();
         $("#subjectsContainer input").setValue(subjectTestValue).pressEnter();
         $("#hobbiesWrapper").$(byText(hobbiesTestValue)).click();
         $("#uploadPicture").uploadFile(new File(imageDirTestValue + imageTestValue));
