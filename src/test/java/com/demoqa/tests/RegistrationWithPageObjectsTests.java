@@ -1,5 +1,6 @@
-package com.demoqa;
+package com.demoqa.tests;
 
+import com.demoqa.pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -30,12 +31,10 @@ public class RegistrationWithPageObjectsTests extends TestBase {
     @Test
     void successfulFillFormTest() {
 
-        open(UrlAutomationPracticeForm);
-        executeJavaScript("$('footer').remove()");
-        executeJavaScript("$('#fixedban').remove()");
-        $(".main-header").shouldHave(text("Practice Form"));
+        registrationPage .openPage().setFirstName("John")
+                         .setLastName("Smith")
+                         .setUserEmail("JohnSmith76@gmail.com").setGender("Other");
 
-        $("#firstName").setValue(firstNameTestValue);
         $("#lastName").setValue(lastNameTestValue);
         $("#userEmail").setValue(emailTestValue);
         $("#genterWrapper").$(byText(genderTestValue)).click();
