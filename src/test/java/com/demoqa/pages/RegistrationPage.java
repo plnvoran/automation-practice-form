@@ -36,8 +36,11 @@ public class RegistrationPage {
     // Actions
     public RegistrationPage openPage() {
         open("/automation-practice-form");
-
         formHeaderText.shouldHave(text("Student Registration Form"));
+
+        return this;
+    }
+    public RegistrationPage removeBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
@@ -69,7 +72,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setSubjects(String value) {
-        subjects.setValue("Math").pressEnter();
+        subjects.setValue(value).pressEnter();
 
         return this;
     }
