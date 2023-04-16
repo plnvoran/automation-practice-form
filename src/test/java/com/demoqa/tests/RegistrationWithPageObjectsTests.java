@@ -1,37 +1,38 @@
 package com.demoqa.tests;
 
 import org.junit.jupiter.api.Test;
-
+import static com.demoqa.data.ValuesForRegistrationsTest.*;
+import static com.demoqa.data.FieldsForRegistrationTestResult.*;
 public class RegistrationWithPageObjectsTests extends TestBase {
 
     @Test
     void successfulRegistrationTest() {
         registrationPage.openPage()
                 .removeBanners()
-                .setFirstName("John")
-                .setLastName("Smith")
-                .setUserEmail("JohnSmith76@gmail.com")
-                .setGender("Other")
-                .setNumber("9221234567")
-                .setBirthDate("15", "July", "2005")
-                .setSubjects("Math")
-                .setHobbies("Music")
-                .uploadPicture("src/test/resources/","CharlesBukowski.jpg")
-                .setCurrentAddress("Address India 04")
-                .setState("NCR")
-                .setCity("Delhi")
+                .setFirstName(nameValue)
+                .setLastName(lastNameValue)
+                .setUserEmail(emailValue)
+                .setGender(genderValue)
+                .setNumber(numberValue)
+                .setBirthDate (dayValue, monthValue, yearValue)
+                .setSubjects(subjectValue)
+                .setHobbies(hobbyValue)
+                .uploadPicture(pathValue, fileValue)
+                .setCurrentAddress(addressValue)
+                .setState(stateValue)
+                .setCity(cityValue)
                 .clickSubmit();
 
         registrationPage.verifyRegistrationResultsModalAppears()
-                .verifyResult("Student Name", "John Smith")
-                .verifyResult("Student Email", "JohnSmith76@gmail.com")
-                .verifyResult("Gender", "Other")
-                .verifyResult("Mobile", "9221234567")
-                .verifyResult("Date of Birth", "15 July,2005")
-                .verifyResult("Subjects", "Math")
-                .verifyResult("Hobbies", "Music")
-                .verifyResult("Picture", "CharlesBukowski.jpg")
-                .verifyResult("Address", "Address India 04")
-                .verifyResult("State and City", "NCR Delhi");
+                .verifyResult(studentNameField, nameValue + " " + lastNameValue)
+                .verifyResult(studentEmailField, emailValue)
+                .verifyResult(genderField, genderValue)
+                .verifyResult(mobileField, numberValue)
+                .verifyResult(dateBirthField, dayValue + " " + monthValue + "," + yearValue)
+                .verifyResult(subjectsField, subjectValue)
+                .verifyResult(hobbiesField, hobbyValue)
+                .verifyResult(pictureField, fileValue)
+                .verifyResult(addressField, addressValue)
+                .verifyResult(stateCityField, stateValue + " " + cityValue);
     }
 }
