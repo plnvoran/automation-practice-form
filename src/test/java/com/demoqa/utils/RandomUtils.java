@@ -1,22 +1,22 @@
 package com.demoqa.utils;
 
+import com.demoqa.data.enums.*;
+import com.demoqa.data.enums.cities.CitiesHaryanaEnum;
+import com.demoqa.data.enums.cities.CitiesNCREnum;
+import com.demoqa.data.enums.cities.CitiesRajasthanEnum;
+import com.demoqa.data.enums.cities.CitiesUttarProdeshEnum;
 import com.github.javafaker.Faker;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomUtils {
+    public static int getRandomIndex(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
 
-    private static String[] genders = {"Male", "Female", "Other"};
-    private static String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    private static String[] hobbies = {"Sports", "Reading", "Music"};
-    private static String[] states = {"NCR", "Uttar Pradesh", "Haryana", "Rajasthan"};
-    private static String[] subjects = {"Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Biology", "Computer Science", "Commerce", "Accounting",
-                                                  "Economics", "Arts", "Social Studies", "History", "Civics"};
-    public static String[] citiesInNCR = new String[] {"Delhi", "Gurgaon", "Noida"};
-    public static String[] citiesInUttarPradesh = new String[] {"Agra", "Lucknow", "Merrut"};
-    public static String[] citiesInHaryana = new String[] { "Karnal", "Panipat"};
-    public static String[] citiesInRajasthan = new String[] {"Jaipur", "Jaiselmer"};
+    public static <T extends Enum<?>> T getRandomFromEnum(Class<T> enumClass) {
+        return enumClass.getEnumConstants()[getRandomIndex(0,enumClass.getEnumConstants().length - 1)];
+    }
 
     public static String generateRandomFirstName() {
         return new Faker().name().firstName();
@@ -30,17 +30,19 @@ public class RandomUtils {
         return new Faker().internet().emailAddress("en");
     }
 
-    public static String generateRandomGender() {
-        return getRandomItemFromArray(genders);
+    public static String generateRandomGender()  {
+        return getRandomFromEnum(GendersEnum.class).getName();
     }
+
 
     public static String generateRandomPhone() {
         return new Faker().numerify("##########");
     }
 
-    public static String generateRandomMonth() {
-        return getRandomItemFromArray(months);
+    public static String generateRandomMonth()  {
+        return getRandomFromEnum(MonthsEnum.class).getName();
     }
+
 
     public static String generateRandomYear() {
         return Integer.toString(ThreadLocalRandom.current().nextInt(1923, 2023));
@@ -55,41 +57,41 @@ public class RandomUtils {
         }
     }
 
-    public static String generateRandomSubject() {
-        return getRandomItemFromArray(subjects);
-    }
+    public static String generateRandomSubject()
+        {
+            return getRandomFromEnum(SubjectsEnum.class).getName();
+        }
+
 
     public static String generateRandomHobby() {
-        return getRandomItemFromArray(hobbies);
+        return getRandomFromEnum(HobbiesEnum.class).getName();
     }
 
     public static String generateRandomAddress() {
         return new Faker().address().fullAddress();
     }
 
+
     public static String generateRandomState() {
-        return getRandomItemFromArray(states);
+        return getRandomFromEnum(StatesEnum.class).getName();
     }
 
     public static String generateRandomCity(String indianState) {
         switch (indianState) {
             case "NCR": {
-                return getRandomItemFromArray(citiesInNCR);
+                return getRandomFromEnum(CitiesNCREnum.class).getName();
             }
             case "Uttar Pradesh": {
-                return getRandomItemFromArray(citiesInUttarPradesh);
+                return getRandomFromEnum(CitiesUttarProdeshEnum.class).getName();
             }
             case "Haryana": {
-                return getRandomItemFromArray(citiesInHaryana);
+                return getRandomFromEnum(CitiesHaryanaEnum.class).getName();
             }
             case "Rajasthan": {
-            return getRandomItemFromArray(citiesInRajasthan);
+            return getRandomFromEnum(CitiesRajasthanEnum.class).getName();
             }
         }
         return null;
     }
-    public static String getRandomItemFromArray(String[] array) {
-        int rnd = new Random().nextInt(array.length);
-        return array[rnd];
-    }
+
 }

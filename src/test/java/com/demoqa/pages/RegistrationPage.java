@@ -1,8 +1,9 @@
 package com.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.demoqa.data.ValuesForRegistrationsTest;
 import com.demoqa.pages.components.CalendarComponent;
-import com.demoqa.pages.components.ResultsModal;
+import com.demoqa.pages.components.ResultsModalComponent;
 
 import java.io.File;
 
@@ -14,8 +15,20 @@ import static com.codeborne.selenide.Selenide.*;
 public class RegistrationPage {
 
     CalendarComponent calendarComponent = new CalendarComponent();
-    ResultsModal resultsModal = new ResultsModal();
+    ResultsModalComponent resultsModal = new ResultsModalComponent();
 
+    public static String
+            studentNameField = "Student Name",
+            studentEmailField = "Student Email",
+            genderField = "Gender",
+            mobileField = "Mobile",
+            dateBirthField = "Date of Birth",
+            subjectsField = "Subjects",
+            hobbiesField = "Hobbies",
+            pictureField = "Picture",
+            addressField = "Address",
+            stateCityField = "State and City",
+            sizesTitleField = "Thanks for submitting the form";
     // Locators
     SelenideElement formHeaderText = $(".practice-form-wrapper"),
             firstNameInput = $("#firstName"),
@@ -35,11 +48,14 @@ public class RegistrationPage {
 
     // Actions
     public RegistrationPage openPage() {
+
         open("/automation-practice-form");
+
         formHeaderText.shouldHave(text("Student Registration Form"));
 
         return this;
     }
+
     public RegistrationPage removeBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
@@ -137,5 +153,20 @@ public class RegistrationPage {
 
         return this;
     }
+
+    public void verifyResult(ValuesForRegistrationsTest student) {
+        resultsModal.verifyResult(studentNameField, student.nameValue + " " + student.lastNameValue);
+        resultsModal.verifyResult(studentEmailField, student.emailValue);
+        resultsModal.verifyResult(genderField, student.genderValue);
+        resultsModal.verifyResult(mobileField, student.numberValue);
+        resultsModal.verifyResult(dateBirthField, student.dayValue + " " + student.monthValue + "," + student.yearValue);
+        resultsModal.verifyResult(subjectsField, student.subjectValue);
+        resultsModal.verifyResult(hobbiesField, student.hobbyValue);
+        resultsModal.verifyResult(pictureField, student.fileValue);
+        resultsModal.verifyResult(addressField, student.addressValue);
+        resultsModal.verifyResult(stateCityField, student.stateValue + " " + student.cityValue);
+
+    }
+
 
 }

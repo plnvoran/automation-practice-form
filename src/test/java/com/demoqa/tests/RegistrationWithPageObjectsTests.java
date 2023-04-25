@@ -1,9 +1,11 @@
 package com.demoqa.tests;
 
+import com.demoqa.data.ValuesForRegistrationsTest;
 import org.junit.jupiter.api.Test;
 import static com.demoqa.data.ValuesForRegistrationsTest.*;
-import static com.demoqa.data.FieldsForRegistrationTestResult.*;
+
 public class RegistrationWithPageObjectsTests extends TestBase {
+    ValuesForRegistrationsTest     valuesForRegistrationsTest = new ValuesForRegistrationsTest();
 
     @Test
     void successfulRegistrationTest() {
@@ -23,16 +25,8 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .setCity(cityValue)
                 .clickSubmit();
 
-        registrationPage.verifyRegistrationResultsModalAppears()
-                .verifyResult(studentNameField, nameValue + " " + lastNameValue)
-                .verifyResult(studentEmailField, emailValue)
-                .verifyResult(genderField, genderValue)
-                .verifyResult(mobileField, numberValue)
-                .verifyResult(dateBirthField, dayValue + " " + monthValue + "," + yearValue)
-                .verifyResult(subjectsField, subjectValue)
-                .verifyResult(hobbiesField, hobbyValue)
-                .verifyResult(pictureField, fileValue)
-                .verifyResult(addressField, addressValue)
-                .verifyResult(stateCityField, stateValue + " " + cityValue);
+        registrationPage.verifyRegistrationResultsModalAppears();
+        registrationPage.verifyResult(valuesForRegistrationsTest);
+
     }
 }
