@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.demoqa.data.FieldsForRegistrationTestResult.*;
 import static com.demoqa.data.ValuesForRegistrationsTest.*;
+import static io.qameta.allure.Allure.step;
 
 public class RegistrationWithRemoteTests extends RemoteTestBase {
 
@@ -13,32 +14,48 @@ public class RegistrationWithRemoteTests extends RemoteTestBase {
     @Tag("remote")
     @DisplayName("Successful registration")
     void successfulRegistrationTest() {
-        registrationPage.openPage()
-                .removeBanners()
-                .setFirstName(nameValue)
-                .setLastName(lastNameValue)
-                .setUserEmail(emailValue)
-                .setGender(genderValue)
-                .setNumber(numberValue)
-                .setBirthDate (dayValue, monthValue, yearValue)
-                .setSubjects(subjectValue)
-                .setHobbies(hobbyValue)
-                .uploadPicture(pathValue, fileValue)
-                .setCurrentAddress(addressValue)
-                .setState(stateValue)
-                .setCity(cityValue)
-                .clickSubmit();
+        step("Open the page with the form", () -> {
+            registrationPage.openPage();
+        });
 
-        registrationPage.verifyRegistrationResultsModalAppears()
-                .verifyResult(studentNameField, nameValue + " " + lastNameValue)
-                .verifyResult(studentEmailField, emailValue)
-                .verifyResult(genderField, genderValue)
-                .verifyResult(mobileField, numberValue)
-                .verifyResult(dateBirthField, dayValue + " " + monthValue + "," + yearValue)
-                .verifyResult(subjectsField, subjectValue)
-                .verifyResult(hobbiesField, hobbyValue)
-                .verifyResult(pictureField, fileValue)
-                .verifyResult(addressField, addressValue)
-                .verifyResult(stateCityField, stateValue + " " + cityValue);
+        step("Filling the form", () -> {
+            registrationPage.removeBanners()
+                    .setFirstName(nameValue)
+                    .setLastName(lastNameValue)
+                    .setUserEmail(emailValue)
+                    .setGender(genderValue)
+                    .setNumber(numberValue)
+                    .setBirthDate(dayValue, monthValue, yearValue)
+                    .setSubjects(subjectValue)
+                    .setHobbies(hobbyValue)
+                    .uploadPicture(pathValue, fileValue)
+                    .setCurrentAddress(addressValue)
+                    .setState(stateValue)
+                    .setCity(cityValue)
+                    .clickSubmit();
+        });
+
+        step("Check the test results", () -> {
+            registrationPage.verifyRegistrationResultsModalAppears()
+                    .verifyResult(studentNameField, nameValue + " " + lastNameValue)
+                    .verifyResult(studentEmailField, emailValue)
+                    .verifyResult(genderField, genderValue)
+                    .verifyResult(mobileField, numberValue)
+                    .verifyResult(dateBirthField, dayValue + " " + monthValue + "," + yearValue)
+                    .verifyResult(subjectsField, subjectValue)
+                    .verifyResult(hobbiesField, hobbyValue)
+                    .verifyResult(pictureField, fileValue)
+                    .verifyResult(addressField, addressValue)
+                    .verifyResult(stateCityField, stateValue + " " + cityValue);
+        });
     }
+
 }
+
+
+
+
+
+
+
+
