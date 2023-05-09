@@ -8,10 +8,11 @@ import static com.demoqa.data.FieldsForRegistrationTestResult.*;
 import static com.demoqa.data.ValuesForRegistrationsTest.*;
 import static io.qameta.allure.Allure.step;
 
+@Tag("practice_form")
 public class RegistrationWithRemoteTests extends RemoteTestBase {
 
     @Test
-    @Tag("remote")
+    @Tag("smoke") @Tag("blocker")
     @DisplayName("Successful registration")
     void successfulRegistrationTest() {
         step("Open the page with the form", () -> {
