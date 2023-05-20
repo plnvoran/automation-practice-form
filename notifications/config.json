@@ -1,7 +1,7 @@
 {
   "base": {
     "logo": "",
-    "project": "Test notification to Telegram",
+    "project": "HW_Demoqa_Telegram_Litinskiy",
     "environment": "https://github.com/plnvoran?tab=repositories",
     "comment": "Результаты",
     "reportLink": "https://jenkins.autotests.cloud/",
